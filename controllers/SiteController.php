@@ -10,11 +10,40 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 
+
+/*
+SiteController controller will be called when no route is specified in request.
+*/
+
+
 class SiteController extends Controller
 {
     /**
      * @inheritdoc
      */
+    public function actionHelloWorld($nameToDisplay)
+    {
+        /*
+        When we use parameters in the action function, we must remember that they
+        will be mandatory and we must respect the order when passing it to the request.
+        To avoid this obligation, we can use the old method, parsing parameters into
+        the function:
+        */
+
+        $nameToDisplay = Yii::$app->request->get('nameToDisplay');
+        // Equivalent to
+        // $nameToDisplay =
+        isset($_GET['nameToDisplay'])?$_GET['nameToDisplay']:null;
+        
+        return $this->render('helloWorld',
+                             [ 'nameToDisplay' => $nameToDisplay ]);
+
+        /*
+        call it with the link:
+        http://localhost/yii2/learn-basic/web/index.php?r=site/hello-world&nameToDisplay=Foo
+        */
+    }
+
     public function behaviors()
     {
         return [
@@ -51,6 +80,13 @@ class SiteController extends Controller
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
+            'static' => [
+                'class' => 'yii\web\ViewAction',
+                'viewPrefix' => 'static'
+            ],
+            // 'pages' => [
+            //     'class' => 'yii\web\ViewAction',
+            // ],
         ];
     }
 
@@ -122,5 +158,10 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionAdvTest()
+    {
+        return $this->render('advTest');
     }
 }

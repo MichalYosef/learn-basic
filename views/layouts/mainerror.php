@@ -1,5 +1,7 @@
 <?php
-
+/*
+The layout folder contains the page template's PHP files.
+*/
 /* @var $this \yii\web\View */
 /* @var $content string */
 
@@ -23,7 +25,14 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body>
+
+<?php
+$backgroundColor = isset($this->params['background_color'])?$this->params['background_color']:'#FFFFFF'; ?>
+<body style="background-color:<?php echo $backgroundColor ?>">
+
+
+
+
 <?php $this->beginBody() ?>
 
 <div class="wrap">
@@ -59,22 +68,18 @@ AppAsset::register($this);
     ?>
 
     <div class="container">
-        <?= Breadcrumbs::widget([
-        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
+        <?= Breadcrumbs::widget(['links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],]) ?>
         <div class="well">
             This is content for blockADV from view
             <br />
             <?php if(isset($this->blocks['blockADV'])) { ?>
-                <?php echo $this->blocks['blockADV']; ?>
+            <?php echo $this->blocks['blockADV']; ?>
             <?php } else { ?>
-                <i>No content available</i>
+            <i>No content available</i>
             <?php } ?>
         </div>
         <?= $content ?>
     </div>
-
-
 </div>
 
 <footer class="footer">

@@ -60,21 +60,11 @@ AppAsset::register($this);
 
     <div class="container">
         <?= Breadcrumbs::widget([
-        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
-        <div class="well">
-            This is content for blockADV from view
-            <br />
-            <?php if(isset($this->blocks['blockADV'])) { ?>
-                <?php echo $this->blocks['blockADV']; ?>
-            <?php } else { ?>
-                <i>No content available</i>
-            <?php } ?>
-        </div>
+        <?= Alert::widget() ?>
         <?= $content ?>
     </div>
-
-
 </div>
 
 <footer class="footer">

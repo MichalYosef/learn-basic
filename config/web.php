@@ -4,17 +4,24 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
-    'id' => 'basic',
+    'id' => 'learn-basic',
+    'name' => 'Learning Yii basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
+        '@uploadedfilesdir' => '@app/uploadedfiles'
     ],
     'components' => [
+        /*
+        request: This component handles all client requests and provides methods
+        to easily get parameters from server global variables, such as $_SERVER,
+        $_POST, $_GET, and $_COOKIES.
+        */
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'IKfJ3NiwMCeVPGr2Ar7hl3ZiTdf8McsN',
+            'cookieValidationKey' => '1GjJUW0I_yTDKOptUA2_XQLE6jfcgSxU',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -43,14 +50,23 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
+       
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-            ],
+                'news/<year:\d{4}>/items-list' => 'news/items-list',
+                'news/<category:\w+>/items-list' => 'news/items-list',
+                /*
+                [
+                    'pattern' => 'news/<category:\w+>/items-list',
+                    'route' => 'news/items-list',
+                    'defaults' => ['category' => 'shopping']
+                ]
+                */
+                ],
         ],
-        */
+       
     ],
     'params' => $params,
 ];

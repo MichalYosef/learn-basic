@@ -1,8 +1,13 @@
 <?php
 
 /* @var $this yii\web\View */
+$backgroundColor = isset($_REQUEST['bckg'])?$_REQUEST['bckg']:'#FFFFFF';
+$this->params['background_color'] = $backgroundColor;
+//Since we are in view file, $this refers to View component
+$this->params['breadcrumbs'][] = 'Mic website'; 
 
 $this->title = 'My Yii Application';
+
 ?>
 <div class="site-index">
 
