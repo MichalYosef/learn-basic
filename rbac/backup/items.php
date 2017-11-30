@@ -4,16 +4,34 @@ return [
         'type' => 2,
         'description' => 'Create a reservation',
     ],
+    'updateReservation' => [
+        'type' => 2,
+        'description' => 'Update reservation',
+    ],
+    'operator' => [
+        'type' => 1,
+        'description' => 'operator',
+        'children' => [
+            'createReservation',
+            'createRoom',
+            'createCustomer',
+        ],
+    ],
+    'admin' => [
+        'type' => 1,
+        'description' => 'admin',
+        'children' => [
+            'updateReservation',
+            'operator',
+            'createReservation',
+        ],
+    ],
     'role_createReservation' => [
         'type' => 1,
         'description' => 'Create a reservation',
         'children' => [
             'createReservation',
         ],
-    ],
-    'updateReservation' => [
-        'type' => 2,
-        'description' => 'Update reservation',
     ],
     'role_updateReservation' => [
         'type' => 1,
@@ -97,28 +115,6 @@ return [
         'description' => 'Delete customer',
         'children' => [
             'deleteCustomer',
-        ],
-    ],
-    'operator' => [
-        'type' => 1,
-        'description' => 'operator',
-        'children' => [
-            'createReservation',
-            'createRoom',
-            'createCustomer',
-        ],
-    ],
-    'admin' => [
-        'type' => 1,
-        'description' => 'admin',
-        'children' => [
-            'createReservation',
-            'updateReservation',
-            'deleteReservation',
-            'createRoom',
-            'updateRoom',
-            'deleteRoom',
-            'createCustomer',
         ],
     ],
 ];
