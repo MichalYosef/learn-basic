@@ -52,7 +52,8 @@ class MyAuthenticationController extends Controller
             'access' => [
                 'class' => AccessControl::className(),
                 /*
-                This method applies an ACF to only two actions, 
+                This method applies an ACF (Action Control Filter) to only two 
+                actions, 
                 actionPublicPage and actionPrivatePage (based only on the 
                 property value)
                 */
@@ -84,40 +85,63 @@ class MyAuthenticationController extends Controller
     
     public function actionLogin()
     {
+        // an $error variable to pass an error description to the view
         $error = null;
         
+        // get username and password data from $_POST 
+
         $username = Yii::$app->request->post('username', null);
         $password = Yii::$app->request->post('password', null);
         
+        // search user by user name in db
+        
         $user = User::findOne(['username' => $username]);
         
+        // if username and password are not empty
         if(($username!=null)&&($password!=null))
         {
+            // if user was found in db
             if($user != null)
             {
+                // validate the inserted password 
+                
                 if($user->validatePassword($password))
                 {
+                    // logg in the user
                     Yii::$app->user->login($user);
                 }
-                else {
+                else 
+                {
+                    // password is not valid (insert error text for the view)
                     $error = 'Password validation failed!';
                 }
             }
             else
             {
+                // username was not found in db
+                // (insert error text for the view)
                 $error = 'User not found';
             }
         }
         
+        // render view
         return $this->render('login', ['error' => $error]);
     }
     
+    
     public function actionLogout()
     {
+        //log the user out from the session 
         Yii::$app->user->logout();
+
+        //redirect the browser to the login page
         return $this->redirect(['login']);
     }
-    
+
+
+    /* actionLoginWithModel: handles login fields through the model 
+       instead of parameters from $_POST
+    */
     public function actionLoginWithModel()
     {
         $error = null;

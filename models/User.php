@@ -58,4 +58,23 @@ class User extends ActiveRecord implements IdentityInterface
         $this->auth_key = Yii::$app->security->generateRandomString();
     }
 
+    /*
+    If our application also uses a cookie-based authentication, we need to fill
+    in the auth_key field too, as this will be passed to the client in the http
+    response. It is convenient to populate the auth_key field automatically
+    when a new user is inserted by overriding the beforeSave() method
+    */
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) 
+        {
+            if ($this->isNewRecord) 
+            {
+                $this->auth_key = \Yii::$app->security->generateRandomString();
+            }
+            return true;
+        }
+
+        return false;
+    }
 }

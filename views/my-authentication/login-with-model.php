@@ -2,29 +2,45 @@
 use \yii\bootstrap\ActiveForm; 
 use \yii\helpers\Html;
 use \yii\bootstrap\Alert;
+// this view is based on the model rules 
 ?>
 
-<?php 
-if($error != null) { 
-    echo Alert::widget([ 'options' => [ 'class' => 'alert-danger' ], 'body' => $error ]);    
-}
+<?php
+    /* if an error occured in the login process (in the controller) - 
+    display the error 
+    */
+    if($error != null) { 
+        echo Alert::widget([ 'options' => [ 'class' => 'alert-danger' ], 'body' => $error ]);    
+    }
 ?>
 
-<?php if(Yii::$app->user->isGuest) { ?> 
+<?php
 
-    <?php $form = ActiveForm::begin([
-        'id' => 'login-form',
-    ]); ?>
+    // if user is not logged in yet
 
-    <?= $form->field($model, 'username') ?>
+    if(Yii::$app->user->isGuest) 
+    {     
+        // Begin login form
 
-    <?= $form->field($model, 'password')->passwordInput() ?>
+        $form = ActiveForm::begin(['id' => 'login-form',]); 
+
+        // username input 
+        echo $form->field($model, 'username');
+
+        // password input
+        echo $form->field($model, 'password')->passwordInput();
+
+        
+ ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+        <?= // submit button
+            Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
+<?php // close form
+    ActiveForm::end(); 
+?>
    
 <?php } else { ?>
     <h2>You are authenticated!</h2>

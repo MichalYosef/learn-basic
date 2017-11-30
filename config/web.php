@@ -14,6 +14,19 @@ $config = [
         '@uploadedfilesdir' => '@app/uploadedfiles'
     ],
     'components' => [
+        /* authManager: 
+        Both methods (PhpManager / DbManager) are based on three objects: 
+        permissions, roles, and rules. 
+        The permissions method represents actions that can be controlled;
+        roles are a set of permissions to which the target can be enabled or 
+        less; and rules are extra validations that will be executed when a 
+        permission is checked.
+        Finally, permissions or roles can be assigned to users and identified 
+        by the IdentityInterface::getId() value of the Yii::$app->user component.
+        */
+        'authManager' => [
+            'class' => 'yii\rbac\PhpManager', //'class' => 'yii\rbac\DbManager,
+        ],
         /*
         request: This component handles all client requests and provides methods
         to easily get parameters from server global variables, such as $_SERVER,
